@@ -37,6 +37,8 @@ body{
 }
 
 .card{
+    position:relative;
+    z-index:10;
     width:340px;
     padding:35px;
 
@@ -121,10 +123,126 @@ button:hover{
 .card::-webkit-scrollbar-thumb:hover {
     background: rgba(255,255,255,0.5);
 }
+
+/* ===== Overlay Premium ===== */
+
+.overlay{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+}
+
+/* Sakura */
+
+.sakura{
+    position:absolute;
+    top:-50px;
+    font-size:20px;
+    opacity:.8;
+    animation:sakuraFall linear infinite;
+}
+
+@keyframes sakuraFall{
+    0%{
+        transform:translateY(-50px) rotate(0deg);
+    }
+    100%{
+        transform:translateY(110vh) translateX(120px) rotate(720deg);
+    }
+}
+
+/* Love */
+
+.love{
+    position:absolute;
+    bottom:-50px;
+    color:#fff;
+    opacity:.7;
+    animation:loveUp linear infinite;
+}
+
+@keyframes loveUp{
+    from{
+        transform:translateY(0) scale(.5);
+    }
+    to{
+        transform:translateY(-120vh) scale(1.4);
+        opacity:0;
+    }
+}
+
+/* Bubble */
+
+.bubble{
+    position:absolute;
+    bottom:-60px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.4);
+    border-radius:50%;
+    backdrop-filter:blur(3px);
+    animation:bubbleUp linear infinite;
+}
+
+@keyframes bubbleUp{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* Star */
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite;
+}
+
+@keyframes twinkle{
+    0%,100%{
+        opacity:.2;
+        transform:scale(.6);
+    }
+    50%{
+        opacity:1;
+        transform:scale(1.8);
+    }
+}
+
+/* Glow */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle,#ffffff33 0%,transparent 60%);
+    animation:glow 6s ease infinite;
+    pointer-events:none;
+}
+
+@keyframes glow{
+    0%,100%{
+        opacity:.4;
+    }
+    50%{
+        opacity:1;
+    }
+}
 </style>
 
 </head>
 <body>
+
+<div class="overlay" id="overlay"></div>
 
 <div class="container">
 <div class="card">
@@ -218,6 +336,37 @@ function selesai(){
     window.location.href="halaman3.html";
 
 }
+
+// Overlay animation elements
+const overlay = document.getElementById('overlay');
+
+function createOverlayElement() {
+    const el = document.createElement('div');
+    const type = Math.random();
+    let className = '';
+
+    if (type < 0.5) {
+        className = 'sakura';
+        el.textContent = '🌸';
+    } else if (type < 0.8) {
+        className = 'love';
+        el.textContent = '❤️';
+    } else {
+        className = 'bubble';
+    }
+
+    el.className = className;
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDuration = Math.random() * 3 + 5 + 's';
+
+    overlay.appendChild(el);
+
+    setTimeout(() => {
+        el.remove();
+    }, 8000);
+}
+
+setInterval(createOverlayElement, 300);
 
 </script>
 
