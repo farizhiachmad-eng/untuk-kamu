@@ -138,32 +138,103 @@ button:hover{
     z-index:1;
 }
 
-/* Sakura */
+/* Glow Background */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle,#ffffff33 0%,transparent 60%);
+    animation:glow 6s ease-in-out infinite;
+    pointer-events:none;
+}
 
+@keyframes glow{
+    0%,100%{opacity:.4;}
+    50%{opacity:1;}
+}
+
+/* Overlay */
+.overlay{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:1;
+}
+
+/* Card */
+.card{
+    position:relative;
+    z-index:10;
+
+    width:340px;
+    padding:35px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:28px;
+
+    text-align:center;
+
+    box-shadow:
+    0 20px 50px rgba(255,0,120,.25),
+    inset 0 0 20px rgba(255,255,255,.15);
+}
+
+.card h2{
+    margin-bottom:15px;
+}
+
+.card p{
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px #ff7bb7;
+}
+
+/* Sakura */
 .sakura{
     position:absolute;
     top:-50px;
     opacity:.8;
     animation:sakuraFall linear infinite;
+    filter:drop-shadow(0 0 6px #ffc8de);
 }
 
 @keyframes sakuraFall{
-    0%{
+    from{
         transform:translateY(-50px) rotate(0deg);
     }
-    100%{
+    to{
         transform:translateY(110vh) translateX(120px) rotate(720deg);
     }
 }
 
 /* Love */
-
 .love{
     position:absolute;
     bottom:-50px;
-    color:#fff;
+    color:white;
     opacity:.7;
     animation:loveUp linear infinite;
+    filter:drop-shadow(0 0 8px #ff8ac4);
 }
 
 @keyframes loveUp{
@@ -177,7 +248,6 @@ button:hover{
 }
 
 /* Bubble */
-
 .bubble{
     position:absolute;
     bottom:-60px;
@@ -186,6 +256,10 @@ button:hover{
     border-radius:50%;
     backdrop-filter:blur(3px);
     animation:bubbleUp linear infinite;
+
+    box-shadow:
+    inset 0 0 10px rgba(255,255,255,.35),
+    0 0 12px rgba(255,255,255,.2);
 }
 
 @keyframes bubbleUp{
@@ -199,7 +273,6 @@ button:hover{
 }
 
 /* Star */
-
 .star{
     position:absolute;
     width:3px;
@@ -207,6 +280,10 @@ button:hover{
     background:white;
     border-radius:50%;
     animation:twinkle 2s infinite;
+
+    box-shadow:
+    0 0 8px white,
+    0 0 15px white;
 }
 
 @keyframes twinkle{
@@ -219,41 +296,31 @@ button:hover{
         transform:scale(1.8);
     }
 }
-
-/* Glow */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle,#ffffff33 0%,transparent 60%);
-    animation:glow 6s ease infinite;
-    pointer-events:none;
-}
-
-@keyframes glow{
-    0%,100%{
-        opacity:.4;
-    }
-    50%{
-        opacity:1;
-    }
-}
 </style>
-
 </head>
 
 <body>
 
 <div class="overlay" id="overlay"></div>
 
+<div class="card">
+    <h2>❤️ Hai Kamu ❤️</h2>
+
+    <p>
+        Nama kamu Aulia Hazma Putri kan?<br><br>
+        Maaf kalau aku salah nulis nama kamu,<br>
+        Aku cuma mau ngungkapin sesuatu... 🥰
+    </p>
+
+    <button onclick="nextPage()">Klik di Sini ❤️</button>
+</div>
+
 <script>
 const overlay=document.getElementById("overlay");
 
 // Sakura
 for(let i=0;i<18;i++){
-    let s=document.createElement("div");
+    const s=document.createElement("div");
     s.className="sakura";
     s.innerHTML="🌸";
     s.style.left=Math.random()*100+"vw";
@@ -265,7 +332,7 @@ for(let i=0;i<18;i++){
 
 // Love
 for(let i=0;i<15;i++){
-    let h=document.createElement("div");
+    const h=document.createElement("div");
     h.className="love";
     h.innerHTML="❤";
     h.style.left=Math.random()*100+"vw";
@@ -277,9 +344,9 @@ for(let i=0;i<15;i++){
 
 // Bubble
 for(let i=0;i<25;i++){
-    let b=document.createElement("div");
+    const b=document.createElement("div");
     b.className="bubble";
-    let size=10+Math.random()*30;
+    const size=10+Math.random()*30;
     b.style.width=size+"px";
     b.style.height=size+"px";
     b.style.left=Math.random()*100+"vw";
@@ -290,13 +357,14 @@ for(let i=0;i<25;i++){
 
 // Star
 for(let i=0;i<70;i++){
-    let st=document.createElement("div");
+    const st=document.createElement("div");
     st.className="star";
     st.style.left=Math.random()*100+"vw";
     st.style.top=Math.random()*100+"vh";
     st.style.animationDelay=Math.random()*2+"s";
     overlay.appendChild(st);
 }
+
 </script>
 
 <div class="overlay" id="overlay"></div>
