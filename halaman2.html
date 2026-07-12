@@ -128,16 +128,6 @@ button:hover{
     background: rgba(255,255,255,0.5);
 }
 
-/* ===== Overlay Premium ===== */
-
-.overlay{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    pointer-events:none;
-    z-index:1;
-}
-
 /* Glow Background */
 body::before{
     content:"";
@@ -302,73 +292,6 @@ button:hover{
 <body>
 
 <div class="overlay" id="overlay"></div>
-
-<div class="card">
-    <h2>❤️ Hai Kamu ❤️</h2>
-
-    <p>
-        Nama kamu Aulia Hazma Putri kan?<br><br>
-        Maaf kalau aku salah nulis nama kamu,<br>
-        Aku cuma mau ngungkapin sesuatu... 🥰
-    </p>
-
-    <button onclick="nextPage()">Klik di Sini ❤️</button>
-</div>
-
-<script>
-const overlay=document.getElementById("overlay");
-
-// Sakura
-for(let i=0;i<18;i++){
-    const s=document.createElement("div");
-    s.className="sakura";
-    s.innerHTML="🌸";
-    s.style.left=Math.random()*100+"vw";
-    s.style.animationDuration=(8+Math.random()*6)+"s";
-    s.style.animationDelay=Math.random()*8+"s";
-    s.style.fontSize=(16+Math.random()*18)+"px";
-    overlay.appendChild(s);
-}
-
-// Love
-for(let i=0;i<15;i++){
-    const h=document.createElement("div");
-    h.className="love";
-    h.innerHTML="❤";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(6+Math.random()*5)+"s";
-    h.style.animationDelay=Math.random()*6+"s";
-    h.style.fontSize=(15+Math.random()*25)+"px";
-    overlay.appendChild(h);
-}
-
-// Bubble
-for(let i=0;i<25;i++){
-    const b=document.createElement("div");
-    b.className="bubble";
-    const size=10+Math.random()*30;
-    b.style.width=size+"px";
-    b.style.height=size+"px";
-    b.style.left=Math.random()*100+"vw";
-    b.style.animationDuration=(10+Math.random()*6)+"s";
-    b.style.animationDelay=Math.random()*5+"s";
-    overlay.appendChild(b);
-}
-
-// Star
-for(let i=0;i<70;i++){
-    const st=document.createElement("div");
-    st.className="star";
-    st.style.left=Math.random()*100+"vw";
-    st.style.top=Math.random()*100+"vh";
-    st.style.animationDelay=Math.random()*2+"s";
-    overlay.appendChild(st);
-}
-
-</script>
-
-<div class="overlay" id="overlay"></div>
-
 <div class="container">
 <div class="card">
 
