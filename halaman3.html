@@ -74,7 +74,7 @@ box-shadow:0 0 25px #ff7bb7;
 }
 
 #no{
-    position:relative;
+    position:fixed;
     background:white;
     color:#ff2d75;
 }
@@ -108,9 +108,8 @@ const no=document.getElementById("no");
 
 no.addEventListener("mouseover",()=>{
 
-    no.style.position="absolute";
-    no.style.left=Math.random()*70+"%";
-    no.style.top=Math.random()*70+"%";
+    no.style.left=Math.random()*80+"%";
+    no.style.top=Math.random()*80+"%";
 
 });
 
@@ -125,12 +124,6 @@ document.getElementById("yes").onclick=function(){
     );
 
     window.location.href=`https://wa.me/${nomor}?text=${pesan}`;
-
-}
-
-document.getElementById("no").onclick=function(){
-
-    alert("Tidak apa-apa 😊 Terima kasih sudah membaca sampai akhir.");
 
 }
 
