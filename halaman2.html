@@ -34,6 +34,10 @@ body{
     width:100%;
     display:flex;
     justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    position:relative;
+    z-index:5;
 }
 
 .card{
@@ -131,7 +135,7 @@ button:hover{
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:0;
+    z-index:1;
 }
 
 /* Sakura */
@@ -239,7 +243,10 @@ body::before{
 </style>
 
 </head>
+
 <body>
+
+<div class="overlay" id="overlay"></div>
 
 <script>
 const overlay=document.getElementById("overlay");
