@@ -25,6 +25,7 @@ body{
 
 .container{
     position:relative;
+    z-index:100;
 }
 
 .card{
@@ -72,6 +73,7 @@ button:hover{
 #yes{
     background:#ff2d75;
     color:white;
+    margin-right: 8px;
 }
 
 #no{
@@ -100,6 +102,9 @@ button:hover{
 #overlay .content{
     color:white;
     text-align:center;
+    font-size: 24px;
+    z-index: 9001;
+    position: relative;
 }
 
 /* Sakura container - sits above background but behind card */
@@ -109,6 +114,19 @@ button:hover{
     inset:0;
     overflow:hidden;
     z-index:5000;
+}
+
+#overlay #sakura-celebration{
+    position:fixed;
+    pointer-events:none;
+    inset:0;
+    overflow:hidden;
+    z-index:9001;
+    display:none;
+}
+
+#overlay.show #sakura-celebration{
+    display:block;
 }
 
 .sakura{
@@ -191,7 +209,8 @@ Kalau kamu belum siap, tidak apa-apa. 😊
 </div>
 
 <!-- Fullscreen overlay that can show celebration / message -->
-<div id="overlay" role="dialog" aria-hidden="true">
+<div id="overlay">
+  <div id="sakura-celebration"></div>
   <div class="content">
     <h2>Yay! ❤️</h2>
     <p>Terima kasih — aku sangat bahagia 💕</p>
@@ -212,12 +231,27 @@ no.addEventListener("mouseover",()=>{
 
 });
 
-// Yes click: show overlay, then redirect to WA
+// Function to create sakura petals
+function createSakuraPetals(container, count = 30) {
+    for (let i = 0; i < count; i++) {
+        const sakura = document.createElement('div');
+        sakura.className = `sakura speed-${(i % 5) + 1}`;
+        sakura.style.left = Math.random() * 100 + '%';
+        sakura.style.animationDelay = Math.random() * 0.5 + 's';
+        container.appendChild(sakura);
+    }
+}
+
+// Yes click: show overlay with sakura, then redirect to WA
 const yesBtn = document.getElementById('yes');
 const overlay = document.getElementById('overlay');
+const sakuraCelebration = document.getElementById('sakura-celebration');
 
 yesBtn.addEventListener('click', async () => {
     overlay.classList.add('show');
+    
+    // Create sakura petals in overlay
+    createSakuraPetals(sakuraCelebration, 30);
 
     // little delay so user sees overlay + sakura
     setTimeout(()=>{
