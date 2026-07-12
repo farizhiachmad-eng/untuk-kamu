@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+
+
+</body>
+</html>
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at top left,#ffd6ea 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#ff9fc6 0%,transparent 35%),
+    linear-gradient(135deg,#ff5fa2,#ff77b7,#ff8fc8);
+
+    color:white;
+}
+
+.card{
+    width:340px;
+    padding:35px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    border-radius:28px;
+
+    text-align:center;
+
+    color:white;
+
+    box-shadow:
+    0 20px 50px rgba(255,0,120,.25),
+    inset 0 0 20px rgba(255,255,255,.15);
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px #ff7bb7;
+
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2>❤️ Hai Kamu ❤️</h2>
+    <p>nama kamu aulia hazma putri kan, 
+    maaf jika aku salah mengetik namamu,
+    aku mau ngungkapin sesuatu🥰</p>
+<button onclick="nextPage()">Klik di Sini ❤️</button>
+
+<script>
+function nextPage(){
+
+    const btn = document.querySelector("button");
+
+    btn.innerHTML = "Membuka...";
+
+    btn.disabled = true;
+
+    setTimeout(function(){
+
+        window.location.href = "untuk kamu2022.html";
+
+    },1500);
+
+}
+</script>
+
+<script>
+
+const no=document.getElementById("no");
+
+no.addEventListener("mouseover",()=>{
+    no.style.position="absolute";
+    no.style.left=Math.random()*70+"%";
+    no.style.top=Math.random()*70+"%";
+});
+
+no.addEventListener("click",()=>{
+    no.style.position="absolute";
+    no.style.left=Math.random()*70+"%";
+    no.style.top=Math.random()*70+"%";
+});
+
+document.getElementById("yes").onclick=function(){
+
+    alert("Yeayy!! ❤️ Terima kasih sudah menerimaku 😊");
+
+    const nomor="6281234567890"; // Ganti dengan nomor kamu
+    const pesan=encodeURIComponent("Hai, aku sudah menekan tombol 'Iya' ❤️");
+    window.open(`https://wa.me/${nomor}?text=${pesan}`,"_blank");
+
+}
+
+</script>
+</html>

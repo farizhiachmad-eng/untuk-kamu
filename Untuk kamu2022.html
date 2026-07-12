@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at top left,#ffd6ea 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#ff9fc6 0%,transparent 35%),
+    linear-gradient(135deg,#ff5fa2,#ff77b7,#ff8fc8);
+
+    color:white;
+}
+
+.card{
+    width:340px;
+    padding:35px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    border-radius:28px;
+
+    text-align:center;
+
+    color:white;
+
+    box-shadow:
+    0 20px 50px rgba(255,0,120,.25),
+    inset 0 0 20px rgba(255,255,255,.15);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+#typing{
+    min-height:250px;
+    line-height:1.8;
+    white-space:pre-wrap;
+    font-size:18px;
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px #ff7bb7;
+
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h1>❤️ Hai Kamu ❤️</h1>
+
+<div id="typing"></div>
+
+<button onclick="selesai()">Lanjut ❤️</button>
+
+</div>
+
+<script>
+
+const text=`Hai...
+
+Kalau kamu sedang membaca tulisan ini,
+berarti ada sesuatu yang ingin aku sampaikan.
+
+Sebenarnya aku sudah cukup lama
+menyimpan perasaan ini.
+
+Entah kenapa...
+setiap kali melihatmu,
+aku selalu merasa lebih bahagia.
+
+Mungkin kamu tidak pernah sadar,
+tetapi senyummu selalu berhasil
+membuat hariku menjadi lebih indah.
+
+Terima kasih
+karena sudah hadir
+dan tanpa sadar
+menjadi alasan aku tersenyum.
+
+Aku tahu...
+aku bukan orang yang sempurna.
+
+Aku masih banyak kekurangan,
+masih banyak yang harus aku pelajari.
+
+Tapi satu hal yang ingin aku pastikan...
+
+Perasaanku kepadamu benar-benar tulus.
+
+Hari ini,
+aku memberanikan diri
+untuk mengatakan semuanya.
+
+Aku menyukaimu.
+
+Bukan karena penampilanmu.
+
+Bukan karena orang lain.
+
+Aku menyukaimu
+karena kamu adalah dirimu sendiri.
+
+Kalau jawabanmu belum sekarang,
+aku akan menghargainya.
+
+Namun...
+
+Kalau kamu bersedia...
+
+Maukah kamu
+menjadi pacarku? ❤️`;
+
+
+
+let i=0;
+
+function ketik(){
+
+    if(i<text.length){
+
+        document.getElementById("typing").textContent+=text.charAt(i);
+
+        i++;
+
+        setTimeout(ketik,40);
+
+    }
+
+}
+
+ketik();
+
+function selesai(){
+
+    window.location.href="untuk kamu3033.html";
+
+}
+
+</script>
+
+</body>
+</html>

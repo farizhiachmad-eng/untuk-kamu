@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Pertanyaan Terakhir ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    background:
+    radial-gradient(circle at top left,#ffd6ea 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#ff9fc6 0%,transparent 35%),
+    linear-gradient(135deg,#ff5fa2,#ff77b7,#ff8fc8);
+
+    color:white;
+}
+
+.card{
+    width:340px;
+    padding:35px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    border-radius:28px;
+
+    text-align:center;
+
+    color:white;
+
+    box-shadow:
+    0 20px 50px rgba(255,0,120,.25),
+    inset 0 0 20px rgba(255,255,255,.15);
+}
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+button:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px #ff7bb7;
+
+}
+
+#yes{
+    background:#ff2d75;
+    color:white;
+}
+
+#no{
+    position:relative;
+    background:white;
+    color:#ff2d75;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>❤️ Pertanyaan Terakhir ❤️</h2>
+
+<p>
+Kalau setelah membaca semuanya,
+bagaimana menurutmu?
+
+Kalau kamu juga ingin mencoba menjalani hubungan denganku,
+tekan tombol <b>Iya ❤️</b>.
+
+Kalau kamu belum siap, tidak apa-apa. 😊
+</p>
+
+<button id="yes">Iya ❤️</button>
+<button id="no">gamauu 😊</button>
+
+</div>
+
+<script>
+
+const no=document.getElementById("no");
+
+no.addEventListener("mouseover",()=>{
+
+    no.style.position="absolute";
+    no.style.left=Math.random()*70+"%";
+    no.style.top=Math.random()*70+"%";
+
+});
+
+document.getElementById("yes").onclick=function(){
+
+    const nomor="6282185052636"; // Ganti dengan nomor WhatsApp kamu
+
+    const pesan=encodeURIComponent(
+        "illoveyou too ❤️❤️"
+    );
+
+    window.location.href=`https://wa.me/${nomor}?text=${pesan}`;
+
+}
+
+document.getElementById("no").onclick=function(){
+
+    alert("Tidak apa-apa 😊 Terima kasih sudah membaca sampai akhir.");
+
+}
+
+</script>
+
+</body>
+</html>
