@@ -23,6 +23,10 @@ body{
     color:white;
 }
 
+.container{
+    position:relative;
+}
+
 .card{
     width:340px;
     padding:35px;
@@ -61,11 +65,8 @@ button{
 }
 
 button:hover{
-
-transform:scale(1.08);
-
-box-shadow:0 0 25px #ff7bb7;
-
+    transform:scale(1.08);
+    box-shadow:0 0 25px #ff7bb7;
 }
 
 #yes{
@@ -78,18 +79,128 @@ box-shadow:0 0 25px #ff7bb7;
     background:white;
     color:#ff2d75;
 }
+
+/* Music button (fixed) */
+#musicBtn{
+    position:fixed;
+    right:18px;
+    top:18px;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+    z-index:9999;
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+    background:linear-gradient(45deg,#fff5f8,#ffdff0);
+    color:#ff2d75;
+}
+
+#musicBtn.playing{
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+    color:white;
+}
+
+/* Fullscreen overlay */
+#overlay{
+    position:fixed;
+    inset:0;
+    background: rgba(0,0,0,0.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9000;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .35s ease;
+}
+#overlay.show{
+    opacity:1;
+    pointer-events:auto;
+}
+#overlay .content{
+    color:white;
+    text-align:center;
+}
+
+/* Sakura container - sits above background but behind card */
+#sakura-container{
+    position:fixed;
+    pointer-events:none;
+    inset:0;
+    overflow:hidden;
+    z-index:5000;
+}
+
+.sakura{
+    position:absolute;
+    top:-40px;
+    width:20px;
+    height:20px;
+    background:radial-gradient(circle at 30% 30%, #fff 10%, #ffd6ea 60%);
+    border-radius:50% 50% 50% 30%;
+    transform:rotate(0deg);
+    opacity:0.9;
+    animation-name:fall, sway, rotate;
+    animation-duration:9s, 4s, 6s;
+    animation-timing-function:linear, ease-in-out, linear;
+    animation-iteration-count:1, infinite, infinite;
+}
+
+/* sizes variation classes */
+.sakura.speed-1{animation-duration:10s, 3s, 6s;}
+.sakura.speed-2{animation-duration:12s, 4s, 5s;}
+.sakura.speed-3{animation-duration:9s, 3.5s, 7s;}
+.sakura.speed-4{animation-duration:14s, 5s, 6s;}
+.sakura.speed-5{animation-duration:8s, 3s, 8s;}
+
+@keyframes fall{
+    to{ transform: translateY(110vh); }
+}
+@keyframes sway{
+    0%{ transform: translateX(0); }
+    50%{ transform: translateX(30px); }
+    100%{ transform: translateX(0); }
+}
+@keyframes rotate{
+    from{ transform: rotate(0deg); }
+    to{ transform: rotate(360deg); }
+}
+
+/* small flower (bunga) floating */
+.bunga{
+    position:absolute;
+    width:22px;
+    height:22px;
+    background: radial-gradient(circle at 50% 40%, #fff 0%, #ffe6f0 40%, #ff9fc6 100%);
+    border-radius:50%;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    opacity:0.95;
+    animation: rise 8s linear infinite;
+}
+@keyframes rise{
+    0%{ transform: translateY(80vh) scale(0.8); }
+    100%{ transform: translateY(-20vh) scale(1); }
+}
+
 </style>
 </head>
 
 <body>
 
+<div id="sakura-container" aria-hidden="true"></div>
+
+<div class="container">
 <div class="card">
 
 <h2>❤️ Pertanyaan Terakhir ❤️</h2>
 
 <p>
 Kalau setelah membaca semuanya,
-bagaimana menurutmu?
+how menurutmu?
 
 Kalau kamu juga ingin mencoba menjalani hubungan denganku,
 tekan tombol <b>Iya ❤️</b>.
@@ -101,33 +212,65 @@ Kalau kamu belum siap, tidak apa-apa. 😊
 <button id="no">gamauu 😊</button>
 
 </div>
+</div>
+
+<!-- Audio element (letakkan file assets/music.mp3 di repo atau ganti path) -->
+<audio id="bgMusic" src="assets/music.mp3" preload="auto" loop></audio>
+<div id="musicBtn" title="Play / Pause">🔇</div>
+
+<!-- Fullscreen overlay that can show celebration / message -->
+<div id="overlay" role="dialog" aria-hidden="true">
+  <div class="content">
+    <h2>Yay! ❤️</h2>
+    <p>Terima kasih — aku sangat bahagia 💕</p>
+  </div>
+</div>
 
 <script>
-
+// playful evasive 'no' button
 const no=document.getElementById("no");
 
 no.addEventListener("mouseover",()=>{
+    // limit to viewport so it won't go off-screen
+    const x = Math.random()*70 + 5; // 5%..75%
+    const y = Math.random()*70 + 10; // 10%..80%
 
-    no.style.left=Math.random()*80+"%";
-    no.style.top=Math.random()*80+"%";
+    no.style.left = x + "%";
+    no.style.top = y + "%";
 
 });
 
-document.getElementById("yes").onclick=function(){
+// Yes click: show overlay, play music if available, then redirect to WA
+const yesBtn = document.getElementById('yes');
+const overlay = document.getElementById('overlay');
+const audio = document.getElementById('bgMusic');
 
-    alert("illooveyou ❤️❤️");
+yesBtn.addEventListener('click', async () => {
+    overlay.classList.add('show');
 
-    const nomor="6282185052636"; // Ganti dengan nomor WhatsApp kamu
+    // try to play music (if file present) — handle promise rejection
+    if (audio) {
+        try{
+            await audio.play();
+        } catch(e){
+            console.warn('Auto-play blocked:', e);
+            // if blocked, leave control to user via music button
+        }
+    }
 
-    const pesan=encodeURIComponent(
-        "illoveyou too ❤️❤️"
-    );
-
-    window.location.href=`https://wa.me/${nomor}?text=${pesan}`;
-
-}
+    // little delay so user sees overlay + sakura
+    setTimeout(()=>{
+        const nomor="6282185052636"; // Ganti dengan nomor WhatsApp kamu
+        const pesan=encodeURIComponent("illoveyou too ❤️❤️");
+        window.location.href=`https://wa.me/${nomor}?text=${pesan}`;
+    },1400);
+});
 
 </script>
+
+<!-- Include sakura and music scripts (existing in repo) -->
+<script src="sakura.js"></script>
+<script src="music.js"></script>
 
 </body>
 </html>
