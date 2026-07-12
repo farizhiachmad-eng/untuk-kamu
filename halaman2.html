@@ -131,166 +131,99 @@ button:hover{
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:0;
+    z-index:1;
 }
 
-/* Sakura */
+.sakura,
+.love,
+.bubble{
+    will-change:transform,opacity;
+}
 
 .sakura{
-    position:absolute;
-    top:-50px;
-    opacity:.8;
-    animation:sakuraFall linear infinite;
+    filter:drop-shadow(0 0 6px #ffd4e5);
 }
-
-@keyframes sakuraFall{
-    0%{
-        transform:translateY(-50px) rotate(0deg);
-    }
-    100%{
-        transform:translateY(110vh) translateX(120px) rotate(720deg);
-    }
-}
-
-/* Love */
 
 .love{
-    position:absolute;
-    bottom:-50px;
-    color:#fff;
-    opacity:.7;
-    animation:loveUp linear infinite;
+    filter:drop-shadow(0 0 10px #ff8bb7);
 }
-
-@keyframes loveUp{
-    from{
-        transform:translateY(0) scale(.5);
-    }
-    to{
-        transform:translateY(-120vh) scale(1.4);
-        opacity:0;
-    }
-}
-
-/* Bubble */
-
-.bubble{
-    position:absolute;
-    bottom:-60px;
-    background:rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.4);
-    border-radius:50%;
-    backdrop-filter:blur(3px);
-    animation:bubbleUp linear infinite;
-}
-
-@keyframes bubbleUp{
-    from{
-        transform:translateY(0);
-    }
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
-}
-
-/* Star */
 
 .star{
-    position:absolute;
-    width:3px;
-    height:3px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 2s infinite;
+    box-shadow:
+        0 0 6px white,
+        0 0 14px white;
 }
 
-@keyframes twinkle{
-    0%,100%{
-        opacity:.2;
-        transform:scale(.6);
-    }
-    50%{
-        opacity:1;
-        transform:scale(1.8);
-    }
+.bubble{
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,.35),
+        0 0 18px rgba(255,255,255,.25);
 }
+document.addEventListener("DOMContentLoaded", () => {
 
-/* Glow */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle,#ffffff33 0%,transparent 60%);
-    animation:glow 6s ease infinite;
-    pointer-events:none;
-}
-
-@keyframes glow{
-    0%,100%{
-        opacity:.4;
-    }
-    50%{
-        opacity:1;
-    }
-}
-</style>
-
-</head>
-<body>
-
-<script>
-const overlay=document.getElementById("overlay");
+const overlay = document.getElementById("overlay");
 
 // Sakura
-for(let i=0;i<18;i++){
-    let s=document.createElement("div");
+for(let i=0;i<20;i++){
+    const s=document.createElement("div");
     s.className="sakura";
     s.innerHTML="🌸";
     s.style.left=Math.random()*100+"vw";
-    s.style.animationDuration=(8+Math.random()*6)+"s";
+    s.style.animationDuration=(8+Math.random()*8)+"s";
     s.style.animationDelay=Math.random()*8+"s";
-    s.style.fontSize=(16+Math.random()*18)+"px";
+    s.style.fontSize=(16+Math.random()*20)+"px";
+    s.style.filter="drop-shadow(0 0 8px rgba(255,255,255,.5))";
     overlay.appendChild(s);
 }
 
 // Love
-for(let i=0;i<15;i++){
-    let h=document.createElement("div");
+for(let i=0;i<18;i++){
+    const h=document.createElement("div");
     h.className="love";
     h.innerHTML="❤";
     h.style.left=Math.random()*100+"vw";
     h.style.animationDuration=(6+Math.random()*5)+"s";
     h.style.animationDelay=Math.random()*6+"s";
     h.style.fontSize=(15+Math.random()*25)+"px";
+    h.style.filter="drop-shadow(0 0 10px #ff8fb5)";
     overlay.appendChild(h);
 }
 
 // Bubble
 for(let i=0;i<25;i++){
-    let b=document.createElement("div");
+    const b=document.createElement("div");
     b.className="bubble";
-    let size=10+Math.random()*30;
+
+    const size=10+Math.random()*30;
+
     b.style.width=size+"px";
     b.style.height=size+"px";
     b.style.left=Math.random()*100+"vw";
-    b.style.animationDuration=(10+Math.random()*6)+"s";
+    b.style.animationDuration=(10+Math.random()*8)+"s";
     b.style.animationDelay=Math.random()*5+"s";
+
     overlay.appendChild(b);
 }
 
 // Star
-for(let i=0;i<70;i++){
-    let st=document.createElement("div");
+for(let i=0;i<80;i++){
+
+    const st=document.createElement("div");
+
     st.className="star";
+
     st.style.left=Math.random()*100+"vw";
     st.style.top=Math.random()*100+"vh";
+
     st.style.animationDelay=Math.random()*2+"s";
+
+    st.style.boxShadow="0 0 10px white";
+
     overlay.appendChild(st);
+
 }
-</script>
+
+});
 
 <div class="overlay" id="overlay"></div>
 
