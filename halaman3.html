@@ -80,30 +80,6 @@ button:hover{
     color:#ff2d75;
 }
 
-/* Music button (fixed) */
-#musicBtn{
-    position:fixed;
-    right:18px;
-    top:18px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    cursor:pointer;
-    z-index:9999;
-    box-shadow:0 8px 18px rgba(0,0,0,0.2);
-    background:linear-gradient(45deg,#fff5f8,#ffdff0);
-    color:#ff2d75;
-}
-
-#musicBtn.playing{
-    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
-    color:white;
-}
-
 /* Fullscreen overlay */
 #overlay{
     position:fixed;
@@ -214,10 +190,6 @@ Kalau kamu belum siap, tidak apa-apa. 😊
 </div>
 </div>
 
-<!-- Audio element (letakkan file assets/music.mp3 di repo atau ganti path) -->
-<audio id="bgMusic" src="assets/music.mp3" preload="auto" loop></audio>
-<div id="musicBtn" title="Play / Pause">🔇</div>
-
 <!-- Fullscreen overlay that can show celebration / message -->
 <div id="overlay" role="dialog" aria-hidden="true">
   <div class="content">
@@ -240,23 +212,12 @@ no.addEventListener("mouseover",()=>{
 
 });
 
-// Yes click: show overlay, play music if available, then redirect to WA
+// Yes click: show overlay, then redirect to WA
 const yesBtn = document.getElementById('yes');
 const overlay = document.getElementById('overlay');
-const audio = document.getElementById('bgMusic');
 
 yesBtn.addEventListener('click', async () => {
     overlay.classList.add('show');
-
-    // try to play music (if file present) — handle promise rejection
-    if (audio) {
-        try{
-            await audio.play();
-        } catch(e){
-            console.warn('Auto-play blocked:', e);
-            // if blocked, leave control to user via music button
-        }
-    }
 
     // little delay so user sees overlay + sakura
     setTimeout(()=>{
@@ -268,9 +229,8 @@ yesBtn.addEventListener('click', async () => {
 
 </script>
 
-<!-- Include sakura and music scripts (existing in repo) -->
+<!-- Include sakura script -->
 <script src="sakura.js"></script>
-<script src="music.js"></script>
 
 </body>
 </html>
