@@ -138,6 +138,9 @@ button:hover{
 </div>
 </div>
 
+<!-- Background music for the page. Will be played when navigating from index if the flag is set -->
+<audio id="bgMusic" src="assets/music.mp3" preload="auto" loop playsinline></audio>
+
 <script>
 
 const text=`Hai...
@@ -153,8 +156,8 @@ setiap kali melihatmu,
 aku selalu merasa lebih bahagia.
 
 Mungkin kamu tidak pernah sadar,
-tetapi senyummu selalu berhasil
-membuat hariku menjadi lebih indah.
+ tetapi senyummu selalu berhasil
+ membuat hariku menjadi lebih indah.
 
 Terima kasih
 karena sudah hadir
@@ -195,7 +198,6 @@ Maukah kamu
 menjadi pacarku? ❤️`;
 
 
-
 let i=0;
 
 function ketik(){
@@ -219,6 +221,23 @@ function selesai(){
     window.location.href="halaman3.html";
 
 }
+
+// On load, if user came from index and set flag, try to play music
+window.addEventListener('DOMContentLoaded', async () => {
+    const audio = document.getElementById('bgMusic');
+    try {
+        if (sessionStorage.getItem('playMusic') === '1' && audio) {
+            // attempt to play; if blocked, it's okay
+            await audio.play();
+            // clear flag so it doesn't re-trigger
+            sessionStorage.removeItem('playMusic');
+        }
+    } catch (e) {
+        console.warn('Unable to play bgMusic on halaman2 load:', e);
+        // still remove flag to avoid retry loops
+        sessionStorage.removeItem('playMusic');
+    }
+});
 
 </script>
 
