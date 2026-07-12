@@ -84,115 +84,103 @@ button:hover{
     color:#ff2d75;
 }
 
-/* Fullscreen overlay */
-#overlay-celebration{
+/* Glow Background */
+body::before{
+    content:"";
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.45);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:9000;
-    opacity:0;
+    inset:0;
+    background:radial-gradient(circle,#ffffff33 0%,transparent 60%);
+    animation:glow 6s ease-in-out infinite;
     pointer-events:none;
-    transition:opacity .35s ease;
-}
-#overlay-celebration.show{
-    opacity:1;
-    pointer-events:auto;
-}
-#overlay-celebration .content{
-    color:white;
-    text-align:center;
-    font-size: 24px;
-    z-index: 9001;
-    position: relative;
 }
 
-/* Sakura container - sits above background but behind card */
-#sakura-container{
-    position:fixed;
-    pointer-events:none;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    z-index:5000;
+@keyframes glow{
+    0%,100%{opacity:.4;}
+    50%{opacity:1;}
 }
 
-#overlay-celebration #sakura-celebration{
-    position:absolute;
-    pointer-events:none;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    z-index:9001;
-    display:none;
-}
-
-#overlay-celebration.show #sakura-celebration{
-    display:block;
-}
-
-.sakura{
-    position:absolute;
-    top:-40px;
-    width:20px;
-    height:20px;
-    background:radial-gradient(circle at 30% 30%, #fff 10%, #ffd6ea 60%);
-    border-radius:50% 50% 50% 30%;
-    transform:rotate(0deg);
-    opacity:0.9;
-    animation-name:fall, sway, rotate;
-    animation-duration:9s, 4s, 6s;
-    animation-timing-function:linear, ease-in-out, linear;
-    animation-iteration-count:1, infinite, infinite;
-}
-
-/* sizes variation classes */
-.sakura.speed-1{animation-duration:10s, 3s, 6s;}
-.sakura.speed-2{animation-duration:12s, 4s, 5s;}
-.sakura.speed-3{animation-duration:9s, 3.5s, 7s;}
-.sakura.speed-4{animation-duration:14s, 5s, 6s;}
-.sakura.speed-5{animation-duration:8s, 3s, 8s;}
-
-@keyframes fall{
-    to{ transform: translateY(110vh); }
-}
-@keyframes sway{
-    0%{ transform: translateX(0); }
-    50%{ transform: translateX(30px); }
-    100%{ transform: translateX(0); }
-}
-@keyframes rotate{
-    from{ transform: rotate(0deg); }
-    to{ transform: rotate(360deg); }
-}
-
-/* ===== Overlay Premium ===== */
-
+/* Overlay */
 .overlay{
     position:fixed;
     inset:0;
     overflow:hidden;
     pointer-events:none;
-    z-index:0;
+    z-index:1;
+}
+
+/* Card */
+.card{
+    position:relative;
+    z-index:10;
+
+    width:340px;
+    padding:35px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:28px;
+
+    text-align:center;
+
+    box-shadow:
+    0 20px 50px rgba(255,0,120,.25),
+    inset 0 0 20px rgba(255,255,255,.15);
+}
+
+.card h2{
+    margin-bottom:15px;
+}
+
+.card p{
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+button{
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(45deg,#ff2d75,#ff6aa9);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px #ff7bb7;
+}
+
+/* Sakura */
+.sakura{
+    position:absolute;
+    top:-50px;
+    opacity:.8;
+    animation:sakuraFall linear infinite;
+    filter:drop-shadow(0 0 6px #ffc8de);
+}
+
+@keyframes sakuraFall{
+    from{
+        transform:translateY(-50px) rotate(0deg);
+    }
+    to{
+        transform:translateY(110vh) translateX(120px) rotate(720deg);
+    }
 }
 
 /* Love */
-
 .love{
     position:absolute;
     bottom:-50px;
-    color:#fff;
+    color:white;
     opacity:.7;
     animation:loveUp linear infinite;
+    filter:drop-shadow(0 0 8px #ff8ac4);
 }
 
 @keyframes loveUp{
@@ -206,7 +194,6 @@ button:hover{
 }
 
 /* Bubble */
-
 .bubble{
     position:absolute;
     bottom:-60px;
@@ -215,6 +202,10 @@ button:hover{
     border-radius:50%;
     backdrop-filter:blur(3px);
     animation:bubbleUp linear infinite;
+
+    box-shadow:
+    inset 0 0 10px rgba(255,255,255,.35),
+    0 0 12px rgba(255,255,255,.2);
 }
 
 @keyframes bubbleUp{
@@ -228,7 +219,6 @@ button:hover{
 }
 
 /* Star */
-
 .star{
     position:absolute;
     width:3px;
@@ -236,6 +226,10 @@ button:hover{
     background:white;
     border-radius:50%;
     animation:twinkle 2s infinite;
+
+    box-shadow:
+    0 0 8px white,
+    0 0 15px white;
 }
 
 @keyframes twinkle{
@@ -248,87 +242,12 @@ button:hover{
         transform:scale(1.8);
     }
 }
-
-/* Glow */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle,#ffffff33 0%,transparent 60%);
-    animation:glow 6s ease infinite;
-    pointer-events:none;
-}
-
-@keyframes glow{
-    0%,100%{
-        opacity:.4;
-    }
-    50%{
-        opacity:1;
-    }
-}
-
 </style>
 </head>
 
 <body>
 
-<script>
-const overlay=document.getElementById("overlay");
-
-// Sakura
-for(let i=0;i<18;i++){
-    let s=document.createElement("div");
-    s.className="sakura";
-    s.innerHTML="🌸";
-    s.style.left=Math.random()*100+"vw";
-    s.style.animationDuration=(8+Math.random()*6)+"s";
-    s.style.animationDelay=Math.random()*8+"s";
-    s.style.fontSize=(16+Math.random()*18)+"px";
-    overlay.appendChild(s);
-}
-
-// Love
-for(let i=0;i<15;i++){
-    let h=document.createElement("div");
-    h.className="love";
-    h.innerHTML="❤";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(6+Math.random()*5)+"s";
-    h.style.animationDelay=Math.random()*6+"s";
-    h.style.fontSize=(15+Math.random()*25)+"px";
-    overlay.appendChild(h);
-}
-
-// Bubble
-for(let i=0;i<25;i++){
-    let b=document.createElement("div");
-    b.className="bubble";
-    let size=10+Math.random()*30;
-    b.style.width=size+"px";
-    b.style.height=size+"px";
-    b.style.left=Math.random()*100+"vw";
-    b.style.animationDuration=(10+Math.random()*6)+"s";
-    b.style.animationDelay=Math.random()*5+"s";
-    overlay.appendChild(b);
-}
-
-// Star
-for(let i=0;i<70;i++){
-    let st=document.createElement("div");
-    st.className="star";
-    st.style.left=Math.random()*100+"vw";
-    st.style.top=Math.random()*100+"vh";
-    st.style.animationDelay=Math.random()*2+"s";
-    overlay.appendChild(st);
-}
-</script>
-
 <div class="overlay" id="overlay"></div>
-
-<div id="sakura-container" aria-hidden="true"></div>
 
 <div class="container">
 <div class="card">
